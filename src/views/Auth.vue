@@ -12,7 +12,7 @@
     <div :class="['form-control',{invalid: eError }]">
       <label for="password">Пароль</label>
       <input type="password" id="password" v-model="password" @blur="pBlur">
-      <small v-if="eError">{{ eError }}</small>
+      <small v-if="eError">{{ pError }}</small>
     </div>
     <button class="btn primary" type="submit" :disabled="isSubmitBtnDisabled">Войти</button>
     <div class="text-danger" v-if="isMaxAttempt">Лимит попыток</div>

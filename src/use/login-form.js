@@ -1,54 +1,59 @@
 import * as yup from 'yup'
 import {useField, useForm} from 'vee-validate'
 import {computed, watch} from "vue";
-
+import {useStore} from 'vuex'
+import {useRouter} from 'vue-router'
 
 export function useLoginForm() {
 
-    const MIN_LEN = 6
-    const MAX_ATTEMPT = 3
+  const store = useStore()
+  const router = useRouter()
 
-    const {handleSubmit, isSubmitting, submitCount} = useForm()
+  const MIN_LEN = 6
+  const MAX_ATTEMPT = 3
 
-    const isMaxAttempt = computed(() => submitCount.value > MAX_ATTEMPT)
+  const {handleSubmit, isSubmitting, submitCount} = useForm()
 
-    const isSubmitBtnDisabled = computed(() => isSubmitting.value || submitCount.value > MAX_ATTEMPT)
+  const isMaxAttempt = computed(() => submitCount.value > MAX_ATTEMPT)
 
-    const {value: email, errorMessage: eError, handleBlur: eBlur} = useField('email',
-        yup
-            .string()
-            .trim()
-            .required('Обязательное поле')
-            .email('Некорректный email')
-    )
-    const {value: password, errorMessage: pError, handleBlur: pBlur} = useField('password',
-        yup
-            .string()
-            .trim()
-            .required('Обязательное поле')
-            .min(MIN_LEN, `Минимум ${MIN_LEN} символов`)
-    )
+  const isSubmitBtnDisabled = computed(() => isSubmitting.value || submitCount.value > MAX_ATTEMPT)
 
-    const onSubmit = handleSubmit(values => {
-        console.log('values', values)
-    })
+  const {value: email, errorMessage: eError, handleBlur: eBlur} = useField('email',
+    yup
+      .string()
+      .trim()
+      .required('Обязательное поле')
+      .email('Некорректный email')
+  )
+  const {value: password, errorMessage: pError, handleBlur: pBlur} = useField('password',
+    yup
+      .string()
+      .trim()
+      .required('Обязательное поле')
+      .min(MIN_LEN, `Минимум ${MIN_LEN} символов`)
+  )
 
-    watch(isMaxAttempt, value => {
-        if (value) {
-            window.setTimeout(() => {
-                submitCount.value = 0
-            }, 3000)
-        }
-    })
-    return {
-        email,
-        password,
-        eError,
-        pError,
-        onSubmit,
-        eBlur,
-        pBlur,
-        isSubmitBtnDisabled,
-        isMaxAttempt,
+  const onSubmit = handleSubmit(async values => {
+    await store.dispatch('auth/login', 'TEST TOKEN')
+    await router.push('/')
+  })
+
+  watch(isMaxAttempt, value => {
+    if (value) {
+      window.setTimeout(() => {
+        submitCount.value = 0
+      }, 3000)
     }
+  })
+  return {
+    email,
+    password,
+    eError,
+    pError,
+    onSubmit,
+    eBlur,
+    pBlur,
+    isSubmitBtnDisabled,
+    isMaxAttempt,
+  }
 }
