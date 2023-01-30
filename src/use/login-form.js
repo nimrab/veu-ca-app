@@ -34,8 +34,11 @@ export function useLoginForm() {
   )
 
   const onSubmit = handleSubmit(async values => {
-    await store.dispatch('auth/login', 'TEST TOKEN')
-    await router.push('/')
+    try {
+      await store.dispatch('auth/login', values)
+      await router.push('/')
+    } catch (e) {
+    }
   })
 
   watch(isMaxAttempt, value => {
