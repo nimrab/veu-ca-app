@@ -29,6 +29,10 @@ const routes = [
       layout: 'auth',
       authRequired: false,
     }
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/',
   }
 ]
 

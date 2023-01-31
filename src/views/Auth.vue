@@ -1,6 +1,5 @@
 <template>
   <form class="card" @submit.prevent="onSubmit">
-    <h1>{{error}}</h1>
     <h1>Войти в систему</h1>
 
     <div :class="['form-control',{invalid: eError }]">
@@ -22,14 +21,7 @@
 
 <script setup>
 import {useLoginForm} from "@/use/login-form";
-import {useStore} from "vuex";
-import {computed} from "vue";
 
-const store = useStore()
-
-const error = computed(()=> {
-  return store.state.message
-})
 
 const {
   email,

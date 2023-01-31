@@ -23,7 +23,14 @@ export default createStore({
       state.message = null
     }
   },
-  actions: {},
+  actions: {
+    setMessage({state, commit}, payload) {
+      commit('setMessage', payload)
+      setTimeout(() => {
+        commit('resetMessage')
+      }, 5000)
+    }
+  },
   modules: {
     auth,
   }

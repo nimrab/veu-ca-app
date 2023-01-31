@@ -36,6 +36,7 @@ export function useLoginForm() {
   const onSubmit = handleSubmit(async values => {
     try {
       await store.dispatch('auth/login', values)
+      store.commit('resetMessage')
       await router.push('/')
     } catch (e) {
     }
