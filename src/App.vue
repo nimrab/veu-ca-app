@@ -14,7 +14,3 @@ const layout = computed(()=> {
 })
 
 </script>
-
-<style>
-
-</style>
