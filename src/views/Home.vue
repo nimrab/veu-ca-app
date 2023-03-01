@@ -6,7 +6,7 @@
     <RequestTable :requests="[]"/>
     <teleport to="body">
       <AppModal v-if="modal" title="Создать заявку" @close="modalClose">
-        <RequestModal/>
+        <RequestModal @created="modalClose"/>
       </AppModal>
     </teleport>
   </AppPage>>
@@ -27,6 +27,7 @@ const modalClose = () => {
 const modalOpen = () => {
   modal.value = true
 }
+
 
 
 </script>
