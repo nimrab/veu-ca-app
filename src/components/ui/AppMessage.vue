@@ -1,7 +1,7 @@
 <template>
   <div :class="['alert', messageClass]">
     <p class="alert-title">{{ TITLE_MAP[message.type] }}</p>
-    <p>{{ message.error }}</p>
+    <p>{{ message.message }}</p>
     <span class="alert-close" @click="closeMessage">&times;</span>
   </div>
 
@@ -19,7 +19,7 @@ const TITLE_MAP = {
   warning: 'Предупреждение',
 }
 const message = computed(() => {
-  return store.state.message ?? {type: '', error: ''}
+  return store.state.message ?? {type: '', message: ''}
 })
 
 const messageClass = computed(() => {

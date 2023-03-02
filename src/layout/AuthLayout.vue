@@ -22,12 +22,8 @@ const isMessageExist = computed(() => {
 
 watch(route, () => {
   if (route.query?.message === 'auth') {
-    store.dispatch('setMessage', {type: 'warning', error: error(route.query.message)})
+    store.dispatch('setMessage', {type: 'warning', message: error(route.query.message)})
   }
 })
 
 </script>
-
-<style scoped>
-
-</style>

@@ -34,11 +34,13 @@
 <script setup>
 
 import {useRequestForm} from "@/use/request-form";
+import {useStore} from "vuex";
 const emits = defineEmits(['created'])
+const store = useStore()
 
-const submit = (values) => {
-  console.log( 'SUBMIT', values )
+const submit = async (values) => {
   emits('created')
+  await store.dispatch('request/createRequest', values)
 }
 
 const { name, nError, nBlur, phone, pError, pBlur, amount, aError, aBlur, status, onSubmit, isSubmitBtnDisabled } = useRequestForm(submit)
