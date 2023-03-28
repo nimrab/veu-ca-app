@@ -15,6 +15,9 @@ export default {
     allRequests(state) {
       return state.requests
     },
+    requestItem: (state) => (id) => {
+      return state.requests.find(r=>r?.id === id)
+    }
   },
 
   mutations: {
@@ -74,6 +77,24 @@ export default {
             message: error(e?.response?.request?.statusText),
           }, {root: true})
         }
+    },
+
+    async getRequest({dispatch}, id) {
+      try {
+        const token = store.getters['auth/authToken']
+        const {data} = await requestAxios.get(`/requests.json?auth=${token}`)
+
+        if (id in data) {
+          return ({id, ...data[id]})
+        }
+        return null
+
+      } catch (e) {
+        dispatch('setMessage', {
+          type: 'danger',
+          message: error(e?.response?.request?.statusText),
+        }, {root: true})
+      }
     }
   }
 }

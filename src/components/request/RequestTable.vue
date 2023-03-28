@@ -13,17 +13,17 @@
     </thead>
     <tbody>
     <tr v-for="(r,idx) in props.requests" :key="r.id">
-      <td>{{idx + 1}}</td>
-      <td>{{r.name}}</td>
-      <td>{{r.phone}}</td>
-      <td>{{currency(r.amount)}}</td>
+      <td><span>{{idx + 1}}</span></td>
+      <td><span>{{r.name}}</span></td>
+      <td><span>{{r.phone}}</span></td>
+      <td><span>{{currency(r.amount)}}</span></td>
       <td>
         <AppStatus :status="r.status" />
       </td>
       <td>
-        <!--        <router-link v-slot="{navigate}" custom :to="{name: 'request', params: {id: r.id}}">-->
-        <!--          <button class="btn primary" @click="navigate">Открыть</button>-->
-        <!--        </router-link>-->
+        <router-link v-slot="{navigate}" custom :to="{name: 'Request', params: {id: r.id}}">
+          <button class="btn" @click="navigate">Открыть</button>
+        </router-link>
       </td>
     </tr>
     </tbody>
@@ -45,3 +45,4 @@ const noRequest = computed(()=> {
 
 
 </script>
+
