@@ -530,3 +530,7 @@ h3 {
 .question-title {
     font-weight: bold;
 }
+
+.question-body {
+    margin-top: 15px;
+}

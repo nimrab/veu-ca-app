@@ -1,12 +1,11 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import Home from '../views/Home.vue'
 import store from '../store'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import('../views/HomeView.vue'),
     meta: {
       layout: 'main',
       authRequired: true,
@@ -15,7 +14,7 @@ const routes = [
   {
     path: '/help',
     name: 'Help',
-    component: () => import('../views/Help.vue'),
+    component: () => import('../views/HelpView.vue'),
     meta: {
       layout: 'main',
       authRequired: true,
@@ -24,7 +23,7 @@ const routes = [
   {
     path: '/request/:id',
     name: 'Request',
-    component: () => import('../views/Request.vue'),
+    component: () => import('../views/RequestView.vue'),
     meta: {
       layout: 'main',
       authRequired: true,
@@ -33,7 +32,7 @@ const routes = [
   {
     path: '/auth',
     name: 'Auth',
-    component: () => import('../views/Auth.vue'),
+    component: () => import('../views/AuthView.vue'),
     meta: {
       layout: 'auth',
       authRequired: false,

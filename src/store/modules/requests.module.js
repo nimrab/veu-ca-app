@@ -95,6 +95,41 @@ export default {
           message: error(e?.response?.request?.statusText),
         }, {root: true})
       }
-    }
+    },
+
+    async removeRequest({dispatch}, id) {
+      try {
+        const token = store.getters['auth/authToken']
+        await requestAxios.delete(`/requests/${id}.json?auth=${token}`)
+        dispatch('getRequests')
+        dispatch('setMessage', {
+          type: 'primary',
+          message: 'Заявка удалена',
+        }, {root: true})
+      } catch(e) {
+        dispatch('setMessage', {
+          type: 'danger',
+          message: error(e?.response?.request?.statusText),
+        }, {root: true})
+      }
+    },
+
+    async updateRequest({dispatch}, request) {
+      try {
+        const token = store.getters['auth/authToken']
+        await requestAxios.put(`/requests/${request.id}.json?auth=${token}`, request)
+
+        dispatch('setMessage', {
+          type: 'primary',
+          message: 'Заявка обновлена',
+        }, {root: true})
+
+      } catch(e) {
+        dispatch('setMessage', {
+          type: 'danger',
+          message: error(e?.response?.request?.statusText),
+        }, {root: true})
+      }
+    },
   }
 }

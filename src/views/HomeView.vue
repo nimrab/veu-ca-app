@@ -2,7 +2,7 @@
   <AppLoader v-if="isLoading"/>
   <AppPage v-else title="Список заявок">
     <template #header>
-      <button class="btn primary" @click="modalOpen">Создать</button>
+      <button class="btn primary" @click="modalOpen">Создать заявку</button>
     </template>
     <RequestFilter
         v-if="requests.length"
